@@ -1,5 +1,6 @@
 const express = require('express')
 const redis = require('redis')
+const process = require('process')
 
 // Create Express app object
 const app = express();
@@ -24,6 +25,11 @@ app.get('/', (req, res) => {
         // to show.
         res.send('Number of visitors is ' + visits);
         client.set('visits', parseInt(visits) + 1);
+
+        // At each 41th visit, crash the server.
+        if(visits  == 40) {
+            process.exit(0);
+        }
     })
 });
 
