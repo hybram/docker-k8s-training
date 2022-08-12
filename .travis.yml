@@ -1,0 +1,11 @@
+sudo: required
+language: generic
+services:
+  - docker
+
+before_install:
+  - cd frontend\
+  - docker build -f Dockerfile.dev . -t lmachraf/frontend
+
+script:
+  - docker run lmachraf/frontend npm start test -- --coverage
